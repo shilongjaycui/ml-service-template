@@ -1,4 +1,4 @@
-# `sklearn-infrastructure`
+# `ml-service-template`
 This is a machine learning service template that contains the sample code of a [scikit-learn](https://scikit-learn.org/stable/) machine learning model. The model is
 1. served using [FastAPI](https://fastapi.tiangolo.com/),
 2. containerized using [Docker](https://www.docker.com/), and
@@ -10,11 +10,11 @@ To enable data scientists and ML practitioner to focus on building machine learn
 ## I'm in. How do I use the template to build models?
 1. Clone this repository:
    ```
-   $ git clone git@github.com:shilongjaycui/sklearn-infrastructure.git
+   $ git clone git@github.com:shilongjaycui/ml-service-template.git
    ```
 2. Navigate into the repository:
    ```
-   $ cd sklearn-infrastructure
+   $ cd ml-service-template
    ```
 3. [Create an AWS account](https://aws.amazon.com/resources/create-account/) if you don't have one already.
 4. [Install AWS Command Line Interface (CLI)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html); then, verify you have AWS CLI successfully installed on your local machine by running the following commands:
