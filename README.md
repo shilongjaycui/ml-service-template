@@ -1,13 +1,13 @@
 # `sklearn-infrastructure`
-This is the sample code of a [scikit-learn](https://scikit-learn.org/stable/) machine learning model that's
-1. served by [FastAPI](https://fastapi.tiangolo.com/),
-2. containerized with [Docker](https://www.docker.com/), and
+This is a machine learning service template that contains the sample code of a [scikit-learn](https://scikit-learn.org/stable/) machine learning model. The model is
+1. served using [FastAPI](https://fastapi.tiangolo.com/),
+2. containerized using [Docker](https://www.docker.com/), and
 3. deployed to [Amazon Web Services (AWS)](https://aws.amazon.com/) using [Terraform](https://www.terraform.io/).
 
-## What motivated the creation of this project?
-To enable data scientists and ML practitioner to focus on building models in production and not worry about model serving or model deployment.
+## What motivated the creation of this template?
+To enable data scientists and ML practitioner to focus on building machine learning models in production and not worry about model serving or model deployment.
 
-## I'm in. How do I build models that are deployed to production from the start?
+## I'm in. How do I use the template to build models?
 1. Clone this repository:
    ```
    $ git clone git@github.com:shilongjaycui/sklearn-infrastructure.git
@@ -37,3 +37,7 @@ To enable data scientists and ML practitioner to focus on building models in pro
    $
    ```
 8. Take a look at the deployed model:
+
+## What upcoming features can I expect in the future?
+- [ ] library-agnostic development: You can develop your machine learning model using scikit-learn, PyTorch, TensorFlow, or Keras.
+- [ ] cloud-agnostic deployment: You can deploy your machine learning model to AWS, Azure, or GCP.
