@@ -1,28 +1,57 @@
 """Serve the model."""
-from joblib import load
-from fastapi import FastAPI, Body
-from src.iris import Iris
-from model import MODEL_FILENAME
-
-app = FastAPI(
-    title="Iris ML API",
-    description="API for iris dataset ml model",
-    version="1.0",
-)
-
-clf = None
+import pickle
+from contextlib import asynccontextmanager
+from lightgbm import LGBMRegressor
+import pandas as pd
+from pydantic import BaseModel
+from fastapi import FastAPI
 
 
-@app.on_event('startup')
-async def load_model():
-    """Read and assign the model."""
-    clf.model = load(f'src/{MODEL_FILENAME}')
+MODEL_NAME: str = "median_income_regressor"
 
 
-@app.post('/predict', tags=["predictions"])
-async def get_prediction(iris: Iris):
-    data = dict(iris)['data']
-    prediction = clf.model.predict(data).tolist()
-    log_proba = clf.model.predict_proba(data).tolist()
-    return {"prediction": prediction,
-            "log_proba": log_proba}
+class FeatureSet(BaseModel):
+    """A Pydantic class that will hold the data model for the feature set"""
+    HouseAge: float
+    AveRooms: float
+    AveBedrms: float
+    Population: float
+    AveOccup: float
+    Latitude: float
+    Longitude: float
+
+
+def median_income_regressor(feature_set_dict: dict) -> dict:
+    """Model loading & prediction."""
+    with open("model.pkl", 'rb') as model_file:
+        model: LGBMRegressor = pickle.load(model_file)
+    feature_set_df = pd.DataFrame(feature_set_dict, index=[0])
+    response = model.predict(feature_set_df)
+    print(f"Model response: {response}\n")
+    return {"prediction": response[0]}
+
+
+ML_MODELS = {}
+
+
+@asynccontextmanager
+async def ml_lifespan_manager(app: FastAPI):
+    """
+    A context manager for the machine learning model life span, which
+    enables machine learning models to be shared across various
+    incoming user requests.
+    """
+    # load the ml model and prediction logic
+    ML_MODELS[MODEL_NAME] = median_income_regressor
+    yield
+    # release the resources + cleanup
+    ML_MODELS.clear()
+
+
+app = FastAPI(lifespan=ml_lifespan_manager)
+
+
+@app.post("/predict")
+async def predict(feature_set: FeatureSet):
+    """An endpoint to call via browser."""
+    return ML_MODELS[MODEL_NAME](feature_set.dict())
