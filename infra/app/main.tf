@@ -26,6 +26,6 @@ module "ecs" {
 
 
 # Outputs
-output "alb_dns_name" {
+output "ml_service_url" {
   value = module.ecs.alb_dns_name
 }
