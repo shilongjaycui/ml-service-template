@@ -3,10 +3,10 @@ install:
 	pip install -r requirements.txt
 
 train:
-	cd app && python train_model.py
+	python train_model.py
 
 serve:
-	cd app && uvicorn serve_model:app --reload --port 8010
+	uvicorn serve_model:app --reload --port 8010
 
 build-image:
 	docker build -t ml-service-image .

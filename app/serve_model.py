@@ -51,6 +51,11 @@ async def ml_lifespan_manager(app: FastAPI):
 app = FastAPI(lifespan=ml_lifespan_manager)
 
 
+@app.get("/")
+def root():
+    return {"message": "Welcome to the machine learning service template for scikit-learn models!"}
+
+
 @app.post("/predict")
 async def predict(feature_set: FeatureSet):
     """An endpoint to call via browser."""
