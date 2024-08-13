@@ -11,4 +11,4 @@ EXPOSE 80
 COPY . /code/
 COPY ./model.pkl /code/
 
-CMD ["fastapi", "run", "serve_model.py", "--proxy-headers", "--port", "80"]
+CMD ["fastapi", "run", "main.py", "--proxy-headers", "--port", "80"]

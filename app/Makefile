@@ -6,7 +6,7 @@ train:
 	python train_model.py
 
 serve:
-	uvicorn serve_model:app --reload --port 8010
+	uvicorn main:app --reload --port 8010
 
 build-image:
 	docker build -t ml-service-image .
